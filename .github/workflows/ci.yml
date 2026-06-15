@@ -10,7 +10,7 @@ jobs:
     name: Format / Analyze / Test
     runs-on: self-hosted-ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: dart-lang/setup-dart@v1
         with:
