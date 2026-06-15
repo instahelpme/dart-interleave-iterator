@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "prHourlyLimit": 8,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "at any time"
+    ]
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/ci\\.yml$/"
+      ],
+      "matchStrings": [
+        "sdk: (?<currentValue>.*)\\n"
+      ],
+      "datasourceTemplate": "dart-version",
+      "depNameTemplate": "dart"
+    }
+  ],
+  "semanticCommitType": "fix",
+  "rangeStrategy": "auto"
+}
