@@ -17,6 +17,7 @@ jobs:
     runs-on: self-hosted-ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
@@ -24,21 +25,18 @@ jobs:
           config-file: .github/release-please-config.json
           manifest-file: .github/release-please-manifest.json
 
-  publish:
+  dispatch-publish:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
     runs-on: self-hosted-ubuntu-latest
     permissions:
-      id-token: write
+      actions: write
     steps:
-      - uses: actions/checkout@v6
-
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Publish to pub.dev
-        run: dart pub publish --force
+      - name: Trigger publish workflow
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/publish.yml/dispatches \
+            -d '{"ref":"${{ needs.release-please.outputs.tag_name }}"}'
