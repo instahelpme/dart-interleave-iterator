@@ -1,6 +1,6 @@
 name: interleave_iterator
 description: Adds interleave and interleaveFactory extension methods to Iterable, inserting a separator between every pair of adjacent elements.
-version: 0.2.1
+version: 0.1.1
 license: BSD-3-Clause
 repository: https://github.com/instahelpme/dart-interleave-iterator
 
