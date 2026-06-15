@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   test:
@@ -15,9 +16,6 @@ jobs:
   release-please:
     needs: test
     runs-on: short-self-hosted-ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
@@ -25,18 +23,12 @@ jobs:
           config-file: .github/release-please-config.json
           manifest-file: .github/release-please-manifest.json
 
-  dispatch-publish:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
-    runs-on: short-self-hosted-ubuntu-latest
-    permissions:
-      actions: write
-    steps:
       - name: Trigger publish workflow
+        if: ${{ steps.release.outputs.release_created }}
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows/publish.yml/dispatches \
-            -d '{"ref":"${{ needs.release-please.outputs.tag_name }}"}'
+            -d '{"ref":"${{ steps.release.outputs.tag_name }}"}'

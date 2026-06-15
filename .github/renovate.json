@@ -14,7 +14,8 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^\\.github/workflows/ci\\.yml$/"
+        "/^\\.github/workflows/ci\\.yml$/",
+        "/^\\.github/workflows/publish\\.yml$/"
       ],
       "matchStrings": [
         "sdk: (?<currentValue>.*)\\n"
