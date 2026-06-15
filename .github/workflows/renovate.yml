@@ -13,7 +13,7 @@ env:
 
 jobs:
   renovate:
-    runs-on: self-hosted-ubuntu-latest
+    runs-on: short-self-hosted-ubuntu-latest
     steps:
       - name: Get token
         uses: actions/create-github-app-token@v3

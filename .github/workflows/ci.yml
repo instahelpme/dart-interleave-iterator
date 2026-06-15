@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     name: Format / Analyze / Test
-    runs-on: self-hosted-ubuntu-latest
+    runs-on: short-self-hosted-ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
