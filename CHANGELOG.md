@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/instahelpme/dart-interleave-iterator/compare/v0.1.1...v0.1.2) (2026-06-24)
+
+
+### Bug Fixes
+
+* lower sdk requirements ([4e7ebf2](https://github.com/instahelpme/dart-interleave-iterator/commit/4e7ebf20fd90f49b94acfbcf6ad64adb6c149aad))
+
 ## [0.1.1](https://github.com/instahelpme/dart-interleave-iterator/compare/v0.1.0...v0.1.1) (2026-06-15)
 
 
